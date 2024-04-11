@@ -1,0 +1,39 @@
+<INICIO_PEROGRAMA> {NOME_PROGRAMA} 
+<ABREBLOCO>
+  {TIPODADO} {NOME_VARIAVEL} .
+  //comando
+  {if} 		
+<FECHABLOCO>
+
+
+prato teste 
+{ 
+	torrada pao. 
+	almoco 23 > 12 coma 
+		( 
+			pao = 2 
+		) 
+	sobremesa ( 
+		pao = 3 
+	) 
+}
+
+
+prato teste 
+{ 
+	torrada pao = 4. 
+	torrada quantidadePessoa = 3. 
+	torrada quantidadeLugares = 4. 
+	processado podeServir = 'false'.
+	processado limparMesa = 'false'.
+	
+	almoco quantidadePessoa <= quantidadeLugares coma ( 
+			podeServir ='true' 
+			
+	) sobremesa ( 
+		limparMesa = 'true'
+	) 
+}
+
+
+

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="TPBOOLEAN"/>
+		<item key="casesensitive" value="false"/>
+		<item key="wholeword" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<list key="findhistory">
+			<item value="TIPOBOOL"/>
+			<item value="TIPOINTEIRO"/>
+			<item value="cond"/>
+			<item value="cafe"/>
+			<item value="VIRGULA"/>
+			<item value="FECHABLOCOND"/>
+			<item value="MAIOR"/>
+			<item value="NUMERO"/>
+		</list>
+		<list key="replacehistory">
+			<item value="TPBOOLEAN"/>
+			<item value="condicional"/>
+			<item value="FIM_STRUC"/>
+			<item value="entrada&apos;"/>
+			<item value="entrada"/>
+		</list>
+	</section>
+</section>
