@@ -1,0 +1,200 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
+ */
+options
+{
+  static = true;
+}
+
+PARSER_BEGIN(Food)
+package Food;
+
+public class Food
+{
+  public static void main(String args []) throws ParseException
+  {
+    Food parser = new Food(System.in);
+    while (true)
+    {
+      System.out.println("peça sua comida");
+      System.out.print("esperando pedido: ");
+      try
+      {
+        switch (Food.main())
+        {
+          case 0 : 
+          System.out.println("COMIDA ENTREGUE");
+          break;
+          case 1 : 
+          System.out.println("FALTOU IGREDIENTE");
+          break;
+          default : 
+          break;
+        }
+      }
+      catch (Exception e)
+      {
+        System.out.println("NOK.");
+        System.out.println(e.getMessage());
+        Food.ReInit(System.in);
+      }
+      catch (Error e)
+      {
+        System.out.println("Oops.");
+        System.out.println(e.getMessage());
+        break;
+      }
+    }
+  }
+}
+
+PARSER_END(Food)
+
+SKIP :
+{
+  " "
+| "\r"
+| "\t"
+| "\n"
+
+}
+
+TOKEN : /* Tipos de dado */
+{
+  < TPINTEIRO		: "torrada" >
+| < TPBOOLEAN		: "processado" >
+| < TPSTRING		: "macarronada" >
+| < TPREAL			: "agua" >
+}
+
+
+TOKEN /* Estrutura */:
+{
+  < INICIOPROGRAMA 	: "prato" >
+| < ABREBLOCO 		: "{" >
+| < FECHABLOCO 		: "}" >
+| < ABREBLOCOND 	: "(" >
+| < FECHABLOCOND 	: ")" >
+| < CONDIF			: "almoco" >
+| < CONDELSE		: "sobremesa" >
+| < REPWHILE		: "rodizio" >
+| < REPFOR			: "degustacao">
+| < ENTAO			: "coma">
+}
+
+
+TOKEN :
+{
+  < NUMERO 		: (< DIGITO >)+ >
+| < #DIGITO 	: [ "0"-"9" ] >
+| < ID 			: <LETRA> (< LETRA> | < DIGITO>)* >
+| < LETRA		: ["A"-"Z"] | ["a"-"z"] >
+| < BOOL		: ("TRUE" | "FALSE" | "true" | "false")>
+| < ASPAS		: "'">
+| < FIM_STRUC	: ".">
+
+}
+
+
+TOKEN :
+{
+ < DIFERENTE	: "!=">
+| < MENORIGUAL	: "<=">
+| < MAIORIGUAL	: ">=">
+| < IGUAL		: "==">
+| < E 			: "&&" >
+| < OU			: "||">
+| < MAIS		: "+">
+| < MENOS		: "-">
+| < MULTI		: "*">
+| < DIV			: "/">
+| < MAIOR		: ">">
+| < MENOR		: "<">
+| < ATRIBUI		: "=">
+}
+	
+
+int main() :
+{}
+{
+<INICIOPROGRAMA> <ID> <ABREBLOCO>
+
+(declara_variavel())*
+(body())*
+
+<FECHABLOCO>
+{
+	return 0;
+}
+}
+
+void tipos() :
+{}
+{
+ <TPINTEIRO > | <TPBOOLEAN > | <TPSTRING > | < TPREAL >
+}
+
+void operacao_matematica() :
+{} 
+{
+		mais()
+	|	menos()
+	|	multi()
+	|	div()	
+}
+
+
+
+void comparacao() :
+{} 
+{
+		maior()
+	|	menor()
+	|	menorIgual()
+	|	maiorIgual()
+	|	diferente()
+	|	igual()
+}
+
+void mais() :{}{< MAIS >}
+void menos() :{}{< MENOS >}
+void multi() :{}{< MULTI >}
+void div() :{}{< DIV >}
+void maior() :{}{< MAIOR >}
+void menor() :{}{< MENOR >}
+void menorIgual() :{}{< MENORIGUAL >}
+void maiorIgual() :{}{< MAIORIGUAL >}
+void diferente() :{}{< DIFERENTE >}
+void igual() :{}{< IGUAL >}
+void operacao_logica() :{}{	  <E>| <OU>}
+void entrada() :{}{	<ID> | <NUMERO>}
+
+void body() :
+{}
+{
+  	id() atribuicaoVar() |
+	<CONDIF> (cond())* <ENTAO> (<ABREBLOCOND> body() <FECHABLOCOND>) (<CONDELSE> (<ABREBLOCOND> body() <FECHABLOCOND>))? |
+	<REPWHILE> (cond())* (<ABREBLOCOND> body() <FECHABLOCOND>) |
+	<REPFOR> (id() atribuicaoVar() <FIM_STRUC> <ID> comparacao() id() <FIM_STRUC> id() atribuicaoVar() <ABREBLOCOND> body() <FECHABLOCOND>) |
+	<FECHABLOCOND>
+
+}
+
+void declara_variavel() : {} {
+	  tpInteiro() (id() (atribuicaoVar())* fimStruc())+
+	| tpInteiro() (id() (atribuicaoVar())* fimStruc())+
+	| tpInteiro() (id() (atribuicaoVar())* fimStruc())+
+}
+void fimStruc(): { } { <FIM_STRUC> }
+void tpInteiro(): { } { <TPINTEIRO> }
+void id(): { } { <ID> }
+void atribuicaoVar() :{}{ <ATRIBUI> (<NUMERO> | <ASPAS><ID><ASPAS> ) }
+void cond() :{}{	entrada() comparacao() entrada() (operacao_logica() cond())* }
+
+
+
+
+
+
+
+
